@@ -1,19 +1,5 @@
-<!--
-====================================================================
-  LABORATOIRE 2 - 420-930-MA - Ete 2026 - gr. 25604
-  Template README a remplir et deposer sur Teams avant la deadline
-====================================================================
 
-Instructions :
-  1. Copiez ce fichier dans votre depot GitHub sous le nom README.md
-  2. Remplissez toutes les sections marquees [A COMPLETER]
-  3. Supprimez tous les commentaires HTML (<!-- ... -->) avant la remise
-  4. Deposez ce fichier (rempli) sur Teams, canal du groupe
-     avec le titre : "Lab2 - Sujet X - Nom1 Nom2 [Nom3]"
-====================================================================
--->
-
-# [A COMPLETER : Nom du projet, ex. "Netflix Catalog - Lab2"]
+# Spotify Playlist Manager - Lab2
 
 **Cours** : 420-930-MA — Algorithmes et modèles de programmation
 **Session** : Été 2026, groupe 25604
@@ -24,24 +10,24 @@ Instructions :
 
 ## Équipe
 
-| Nom complet | Adresse courriel | Contribution principale |
-|-------------|------------------|--------------------------|
-| [A COMPLETER : Nom Prénom 1] | [courriel1] | [ex : Modèle, Service, Tris] |
-| [A COMPLETER : Nom Prénom 2] | [courriel2] | [ex : UI FXML, Controller, CSS] |
-| [A COMPLETER : Nom Prénom 3 si équipe de 3] | [courriel3] | [ex : Algorithmes, Benchmark] |
+| Nom complet       | Adresse courriel | Contribution principale |
+|-------------------|------------------|--------------------------|
+| Charles Legault   | [courriel1] | [ex : Modèle, Service, Tris] |
+| Eva Bessette      | [courriel2] | [ex : UI FXML, Controller, CSS] |
+| Marc-André Dufour | [courriel3] | [ex : Algorithmes, Benchmark] |
 
 ---
 
 ## Sujet choisi
 
-**Numéro du sujet** : [A COMPLETER : 1, 2, 3, 4 ou 5]
-**Nom du sujet** : [A COMPLETER : ex. "Netflix Catalog"]
+**Numéro du sujet** : 3
+**Nom du sujet** : Spotify Playlist Manager
 
 ---
 
 ## 🔗 Lien du dépôt GitHub PUBLIC
 
-**URL** : [A COMPLETER : https://github.com/USERNAME/nom-du-projet]
+**URL** : [https://github.com/bleeband/Lab2_algo](https://github.com/bleeband/Lab2_algo)
 
 > ⚠️ Vérifier que le dépôt est **PUBLIC** et accessible sans authentification.
 > Tester le lien dans un navigateur privé avant la remise.
