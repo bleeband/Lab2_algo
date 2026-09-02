@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -65,6 +66,43 @@
       </VBox>
    </right>
    <bottom>
-      <HBox prefHeight="149.0" prefWidth="943.0" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="149.0" prefWidth="943.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Label">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="TOP_CENTER" prefHeight="94.0" prefWidth="100.0">
+                     <children>
+                        <Label text="titre" />
+                        <Label text="—" />
+                        <Label text="artiste" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Region prefHeight="150.0" prefWidth="168.0" />
+            <HBox alignment="TOP_CENTER" prefHeight="150.0" prefWidth="395.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" text="⏮" />
+                  <Button mnemonicParsing="false" text="▶" />
+                  <Button mnemonicParsing="false" text="⏸" />
+                  <Button mnemonicParsing="false" text="⏭" />
+                  <Button mnemonicParsing="false" text="🔀" />
+                  <ProgressBar prefHeight="18.0" prefWidth="213.0" progress="0.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </ProgressBar>
+               </children>
+               <padding>
+                  <Insets top="25.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
    </bottom>
 </BorderPane>
