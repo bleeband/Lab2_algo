@@ -1,14 +1,18 @@
 package org.example.spotifylab.model;
 
 public enum Genre {
-    POP,
     ROCK,
-    HIP_HOP,
-    JAZZ,
-    CLASSIQUE,
+    POP,
     ELECTRONIC,
+    INDIE,
     METAL,
+    ALTERNATIVE,
+    JAZZ,
+    PUNK,
+    HIP_HOP,
+    REGGAE,
+    SOUL,
+    FOLK,
     COUNTRY,
-    RNB,
-    REGGAE
+    AUTRE
 }
