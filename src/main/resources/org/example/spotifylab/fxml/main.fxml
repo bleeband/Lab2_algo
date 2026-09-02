@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane prefHeight="629.0" prefWidth="943.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="champRecherche" maxWidth="Infinity" promptText="Rechercher une chanson" HBox.hgrow="ALWAYS" />
+            <ComboBox fx:id="comboGenre" prefWidth="130.0" promptText="Genre" />
+            <ComboBox fx:id="comboDecennie" prefWidth="130.0" promptText="Décennie" />
+            <ComboBox fx:id="comboArtiste" prefWidth="130.0" promptText="Artiste" />
+            <Label text="Durée max" />
+            <Slider fx:id="sliderDuree" prefWidth="120.0" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+         </padding>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefWidth="200.0" spacing="8.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Mes playlists">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ListView fx:id="listePlaylists" VBox.vgrow="ALWAYS" />
+            <HBox spacing="8.0">
+               <children>
+                  <Button fx:id="boutonNouvellePlaylist" maxWidth="Infinity" mnemonicParsing="false" text="Nouvelle" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="boutonSupprimerPlaylist" maxWidth="Infinity" mnemonicParsing="false" text="Supprimer" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <VBox spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tableChansons" VBox.vgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="colonneTitre" prefWidth="200.0" text="Titre" />
+                  <TableColumn fx:id="colonneArtiste" prefWidth="140.0" text="Artiste" />
+                  <TableColumn fx:id="colonneAnnee" prefWidth="80.0" text="Année" />
+                  <TableColumn fx:id="colonneDuree" prefWidth="80.0" text="Durée" />
+                  <TableColumn fx:id="colonneEcoutes" prefWidth="90.0" text="Écoutes" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox alignment="CENTER" spacing="12.0">
+               <children>
+                  <Button fx:id="boutonPagePrecedente" mnemonicParsing="false" text="Précédent" />
+                  <Label fx:id="labelPage" text="Page 1 / 1" />
+                  <Button fx:id="boutonPageSuivante" mnemonicParsing="false" text="Suivant" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+      </VBox>
+   </center>
+   <right>
+      <VBox fx:id="panneauDetail" prefWidth="210.0" spacing="6.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="detailTitre" text="Titre" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="detailArtiste" text="Artiste" wrapText="true" />
+            <Label fx:id="detailAlbum" text="Album" wrapText="true" />
+            <Label fx:id="detailGenre" text="Genre" />
+            <Label fx:id="detailAnnee" text="Année" />
+            <Label fx:id="detailDuree" text="Durée" />
+            <Label fx:id="detailEcoutes" text="Écoutes" />
+            <Region VBox.vgrow="ALWAYS" />
+            <ComboBox fx:id="comboAjoutPlaylist" maxWidth="Infinity" promptText="Ajouter à..." />
+            <Button fx:id="boutonAjouter" maxWidth="Infinity" mnemonicParsing="false" text="Ajouter" />
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="10.0" />
+         </padding>
+      </VBox>
+   </right>
+   <bottom>
+      <HBox alignment="CENTER_LEFT" spacing="15.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefWidth="220.0" spacing="2.0">
+               <children>
+                  <Label fx:id="lecteurTitre" text="Titre" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lecteurArtiste" text="Artiste" />
+               </children>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER" spacing="6.0">
+               <children>
+                  <Button fx:id="boutonPrecedent" mnemonicParsing="false" text="⏮" />
+                  <Button fx:id="boutonPlay" mnemonicParsing="false" text="▶" />
+                  <Button fx:id="boutonPause" mnemonicParsing="false" text="⏸" />
+                  <Button fx:id="boutonSuivant" mnemonicParsing="false" text="⏭" />
+                  <Button fx:id="boutonShuffle" mnemonicParsing="false" text="🔀" />
+               </children>
+            </HBox>
+            <Label fx:id="lecteurTempsEcoule" text="0:00" />
+            <Slider fx:id="sliderProgression" prefWidth="180.0" />
+            <Label fx:id="lecteurDureeTotale" text="0:00" />
+         </children>
+         <padding>
+            <Insets bottom="12.0" left="15.0" right="15.0" top="12.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>
