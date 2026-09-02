@@ -9,7 +9,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="629.0" prefWidth="943.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
@@ -43,9 +45,26 @@
       </VBox>
    </left>
    <right>
-      <VBox prefHeight="530.0" prefWidth="209.0" BorderPane.alignment="CENTER" />
+      <VBox fx:id="detailTitre" prefHeight="530.0" prefWidth="209.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Label">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="detailArtiste" text="Artiste" />
+            <Label fx:id="detailAlbum" text="Label" />
+            <Label fx:id="detailGenre" text="Label" />
+            <Label fx:id="detailAnnee" text="Label" />
+            <Label fx:id="detailDuree" text="Label" />
+            <Label fx:id="detailEcoutes" text="Label" />
+            <Region prefHeight="144.0" prefWidth="210.0" />
+            <ComboBox fx:id="AjoutPlaylist" prefHeight="26.0" prefWidth="102.0" promptText="Ajouter à..." />
+            <Button fx:id="boutonAjouter" mnemonicParsing="false" text="Ajouter" />
+         </children>
+      </VBox>
    </right>
    <bottom>
-      <HBox prefHeight="128.0" prefWidth="943.0" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="149.0" prefWidth="943.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>
