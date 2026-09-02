@@ -7,6 +7,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -34,7 +36,11 @@
    <left>
       <VBox prefHeight="530.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Mes playlists: " />
+            <Label text="Mes playlists">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
             <ListView prefHeight="200.0" prefWidth="200.0" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                <children>
@@ -92,7 +98,7 @@
                   <Button mnemonicParsing="false" text="⏸" />
                   <Button mnemonicParsing="false" text="⏭" />
                   <Button mnemonicParsing="false" text="🔀" />
-                  <ProgressBar prefHeight="18.0" prefWidth="213.0" progress="0.0">
+                  <ProgressBar prefHeight="18.0" prefWidth="147.0" progress="0.0">
                      <padding>
                         <Insets top="5.0" />
                      </padding>
@@ -105,4 +111,27 @@
          </children>
       </HBox>
    </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn prefWidth="200.0" text="titre" />
+                <TableColumn prefWidth="77.5999755859375" text="artiste" />
+                  <TableColumn prefWidth="82.39990234375" text="année" />
+                  <TableColumn prefWidth="79.99993896484375" text="durée" />
+                  <TableColumn prefWidth="93.60009765625" text="joué" />
+              </columns>
+            </TableView>
+            <Region prefHeight="81.0" prefWidth="534.0" />
+            <HBox alignment="CENTER" prefHeight="107.0" prefWidth="534.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Button" />
+                  <Label text="Label" />
+                  <Button mnemonicParsing="false" text="Button" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>
