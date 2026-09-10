@@ -1,0 +1,11 @@
+.root {
+    -fx-background-color: #9799ef;
+    -fx-text-fill: #292942;
+
+
+}
+
+
+#tableChansons {
+    -fx-background-color: rgb(189 189 237);
+}
