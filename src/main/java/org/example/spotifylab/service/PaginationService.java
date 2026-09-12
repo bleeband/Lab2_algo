@@ -25,6 +25,11 @@ public class PaginationService {
         }
 
     public int calculerNombrePages(int nombreChansons, int taillePage) {
+
+        if (nombreChansons < 0 || taillePage <= 0) {
+            throw new IllegalArgumentException("Nombre ou taille de pages invalide");
+        }
+
         return (nombreChansons + taillePage -1) / taillePage;
     }
 
