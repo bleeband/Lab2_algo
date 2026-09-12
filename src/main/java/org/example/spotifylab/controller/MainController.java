@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.example.spotifylab.service.PaginationService;
+import org.example.spotifylab.service.ChansonService;
 
 public class MainController {
 
@@ -31,11 +32,13 @@ public class MainController {
                         afficherDetails(nouvelleChanson));
         afficherDetails(null);
 
-
+        champRecherche.textProperty().addListener(
+                (observable, ancienTexte, nouveauTexte) -> appliquerRecherche());
 
 
         try {
             chansons = csvChansonService.chargerChansons();
+            chansonsFiltrees = chansons;
             afficherPage(); // affiche les chansons
         } catch (IOException e) {
             Alert alerte = new Alert(Alert.AlertType.ERROR);
@@ -68,25 +71,30 @@ public class MainController {
     @FXML
     private TableColumn<Chanson, Integer> colonneEcoutes;
 
+
+
+
     // affichage chansons
 
     private final CsvChansonService csvChansonService = new CsvChansonService();
 
     private List<Chanson> chansons = List.of();
+    private List<Chanson> chansonsFiltrees = List.of();
 
     private int pageCourante = 0;
 
     private int taillePage = 25;
 
     private final PaginationService paginationService = new PaginationService();
+    private final ChansonService chansonService = new ChansonService();
 
     private void afficherPage(){
         List<Chanson> page = paginationService.obtenirPage(
-                chansons, pageCourante, taillePage);
+                chansonsFiltrees, pageCourante, taillePage);
         tableChansons.getItems().setAll(page);
 
         int nombrePages = paginationService.calculerNombrePages(
-                chansons.size(), taillePage);
+                chansonsFiltrees.size(), taillePage);
 
         if (nombrePages == 0) {
 
@@ -100,6 +108,12 @@ public class MainController {
 
         boutonPageSuivante.setDisable(nombrePages == 0 || pageCourante >= nombrePages -1);
 
+    }
+
+    private void appliquerRecherche(){
+        chansonsFiltrees = chansonService.rechercher(chansons, champRecherche.getText());
+        pageCourante = 0;
+        afficherPage();
     }
 
     // boutons précedent/suivant + Page 1/1
@@ -123,7 +137,7 @@ public class MainController {
 
     @FXML
     private void pageSuivante() {
-        int nombrePages = paginationService.calculerNombrePages(chansons.size(), taillePage);
+        int nombrePages = paginationService.calculerNombrePages(chansonsFiltrees.size(), taillePage);
         if (pageCourante < nombrePages - 1) {
             pageCourante++;
             afficherPage();
