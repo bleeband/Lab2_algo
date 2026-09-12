@@ -26,6 +26,14 @@ public class MainController {
         colonneEcoutes.setCellValueFactory(cellule ->
                 new SimpleIntegerProperty(cellule.getValue().getEcoutes()).asObject());
 
+        tableChansons.getSelectionModel().selectedItemProperty().addListener(
+                (observable, ancienneChanson, nouvelleChanson) ->
+                        afficherDetails(nouvelleChanson));
+        afficherDetails(null);
+
+
+
+
         try {
             chansons = csvChansonService.chargerChansons();
             afficherPage(); // affiche les chansons
@@ -119,6 +127,50 @@ public class MainController {
         if (pageCourante < nombrePages - 1) {
             pageCourante++;
             afficherPage();
+        }
+    }
+
+    // panneau de details
+
+    @FXML
+    private Label detailTitre;
+
+    @FXML
+    private Label detailArtiste;
+
+    @FXML
+    private Label detailAlbum;
+
+    @FXML
+    private Label detailGenre;
+
+    @FXML
+    private Label detailAnnee;
+
+    @FXML
+    private Label detailDuree;
+
+    @FXML
+    private Label detailEcoutes;
+
+    private void afficherDetails(Chanson chanson) {
+        if (chanson == null) {
+            detailTitre.setText("");
+            detailArtiste.setText("");
+            detailAlbum.setText("");
+            detailGenre.setText("");
+            detailAnnee.setText("");
+            detailDuree.setText("");
+            detailEcoutes.setText("");
+        }
+        else {
+            detailTitre.setText(chanson.getTitre());
+            detailArtiste.setText(chanson.getArtiste());
+            detailAlbum.setText(chanson.getAlbum());
+            detailGenre.setText(String.valueOf(chanson.getGenre()));
+            detailAnnee.setText(String.valueOf(chanson.getAnnee()));
+            detailDuree.setText(String.valueOf(chanson.getDureeSec()));
+            detailEcoutes.setText(String.valueOf(chanson.getEcoutes()));
         }
     }
 
