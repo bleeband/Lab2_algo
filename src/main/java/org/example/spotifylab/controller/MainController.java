@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.example.spotifylab.model.Chanson;
+import org.example.spotifylab.model.Genre;
 import org.example.spotifylab.service.CsvChansonService;
 
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.util.List;
 
 import org.example.spotifylab.service.PaginationService;
 import org.example.spotifylab.service.ChansonService;
+
+import javafx.util.StringConverter;
 
 public class MainController {
 
@@ -27,13 +30,36 @@ public class MainController {
         colonneEcoutes.setCellValueFactory(cellule ->
                 new SimpleIntegerProperty(cellule.getValue().getEcoutes()).asObject());
 
+        comboGenre.getItems().setAll(Genre.values());
+        comboGenre.getItems().add(0, null);
+
+        comboGenre.setConverter(new StringConverter<Genre>() {
+            @Override
+            public String toString(Genre genre) {
+                if (genre == null) {
+                    return "Genre";
+                }
+                return genre.name();
+            }
+
+            @Override
+            public Genre fromString(String texte) {
+                return null;
+            }
+        });
+
+        comboGenre.setPromptText("Genre");
+
         tableChansons.getSelectionModel().selectedItemProperty().addListener(
                 (observable, ancienneChanson, nouvelleChanson) ->
                         afficherDetails(nouvelleChanson));
         afficherDetails(null);
 
         champRecherche.textProperty().addListener(
-                (observable, ancienTexte, nouveauTexte) -> appliquerRecherche());
+                (observable, ancienTexte, nouveauTexte) -> appliquerFiltres());
+
+        comboGenre.valueProperty().addListener(
+                (observable, ancienGenre, nouveauGenre) -> appliquerFiltres());
 
 
         try {
@@ -110,8 +136,9 @@ public class MainController {
 
     }
 
-    private void appliquerRecherche(){
+    private void appliquerFiltres(){
         chansonsFiltrees = chansonService.rechercher(chansons, champRecherche.getText());
+        chansonsFiltrees = chansonService.filtrer(chansonsFiltrees, comboGenre.getValue(), null, null, null, null);
         pageCourante = 0;
         afficherPage();
     }
@@ -187,6 +214,13 @@ public class MainController {
             detailEcoutes.setText(String.valueOf(chanson.getEcoutes()));
         }
     }
+
+    // fonctionnalités tri
+
+    @FXML
+    private ComboBox<Genre> comboGenre;
+
+
 
 
 
