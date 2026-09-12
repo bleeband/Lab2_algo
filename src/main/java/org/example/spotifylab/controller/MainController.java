@@ -2,15 +2,13 @@ package org.example.spotifylab.controller;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.example.spotifylab.model.Chanson;
-import javafx.scene.control.TableColumn;
 import org.example.spotifylab.service.CsvChansonService;
 
 import java.io.IOException;
 import java.util.List;
-import javafx.scene.control.Alert;
+
 import org.example.spotifylab.service.PaginationService;
 
 public class MainController {
@@ -62,6 +60,8 @@ public class MainController {
     @FXML
     private TableColumn<Chanson, Integer> colonneEcoutes;
 
+    // affichage chansons
+
     private final CsvChansonService csvChansonService = new CsvChansonService();
 
     private List<Chanson> chansons = List.of();
@@ -77,5 +77,19 @@ public class MainController {
                 chansons, pageCourante, taillePage);
         tableChansons.getItems().setAll(page);
     }
+
+    // boutons précedent/suivant + Page 1/1
+
+    @FXML
+    private Button boutonPagePrecedente;
+
+    @FXML
+    private Button boutonPageSuivante;
+
+    @FXML
+    private Label labelPage;
+
+
+
 
 }
