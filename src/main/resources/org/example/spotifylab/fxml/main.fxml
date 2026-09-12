@@ -70,9 +70,9 @@
             </TableView>
             <HBox alignment="CENTER" spacing="12.0">
                <children>
-                  <Button fx:id="boutonPagePrecedente" mnemonicParsing="false" text="Précédent" />
+                  <Button fx:id="boutonPagePrecedente" mnemonicParsing="false" text="Précédent" onAction="#pagePrecedente" />
                   <Label fx:id="labelPage" text="Page 1 / 1" />
-                  <Button fx:id="boutonPageSuivante" mnemonicParsing="false" text="Suivant" />
+                  <Button fx:id="boutonPageSuivante" mnemonicParsing="false" text="Suivant" onAction="#pageSuivante" />
                </children>
             </HBox>
          </children>

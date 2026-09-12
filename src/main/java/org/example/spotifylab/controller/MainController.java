@@ -76,6 +76,22 @@ public class MainController {
         List<Chanson> page = paginationService.obtenirPage(
                 chansons, pageCourante, taillePage);
         tableChansons.getItems().setAll(page);
+
+        int nombrePages = paginationService.calculerNombrePages(
+                chansons.size(), taillePage);
+
+        if (nombrePages == 0) {
+
+            labelPage.setText("Page 0 / 0");
+        }
+        else {
+            labelPage.setText("Page " + (pageCourante + 1) + " / " + nombrePages );
+        }
+
+        boutonPagePrecedente.setDisable(pageCourante == 0);
+
+        boutonPageSuivante.setDisable(nombrePages == 0 || pageCourante >= nombrePages -1);
+
     }
 
     // boutons précedent/suivant + Page 1/1
@@ -88,6 +104,23 @@ public class MainController {
 
     @FXML
     private Label labelPage;
+
+    @FXML
+    private void pagePrecedente() {
+        if (pageCourante > 0) {
+            pageCourante--;
+            afficherPage();
+        }
+    }
+
+    @FXML
+    private void pageSuivante() {
+        int nombrePages = paginationService.calculerNombrePages(chansons.size(), taillePage);
+        if (pageCourante < nombrePages - 1) {
+            pageCourante++;
+            afficherPage();
+        }
+    }
 
 
 
