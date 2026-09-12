@@ -5,6 +5,7 @@ import org.example.spotifylab.model.Chanson;
 import java.util.List;
 
 public class PaginationService {
+
     public List<Chanson> obtenirPage(List<Chanson> chansons, int pageCourante, int taillePage) {
 
         if (pageCourante < 0 || taillePage <= 0) {
@@ -22,5 +23,9 @@ public class PaginationService {
         return chansons.subList(debut, fin);
 
         }
+
+    public int calculerNombrePages(int nombreChansons, int taillePage) {
+        return (nombreChansons + taillePage -1) / taillePage;
+    }
 
     }
