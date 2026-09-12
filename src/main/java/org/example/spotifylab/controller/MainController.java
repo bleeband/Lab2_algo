@@ -6,6 +6,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import org.example.spotifylab.model.Chanson;
 import javafx.scene.control.TableColumn;
+import org.example.spotifylab.service.CsvChansonService;
+
+import java.io.IOException;
+import java.util.List;
+import javafx.scene.control.Alert;
 
 public class MainController {
 
@@ -21,6 +26,17 @@ public class MainController {
                 new SimpleIntegerProperty(cellule.getValue().getDureeSec()).asObject());
         colonneEcoutes.setCellValueFactory(cellule ->
                 new SimpleIntegerProperty(cellule.getValue().getEcoutes()).asObject());
+
+        try {
+            List<Chanson> chansons = csvChansonService.chargerChansons();
+            tableChansons.getItems().setAll(chansons);
+        } catch (IOException e) {
+            Alert alerte = new Alert(Alert.AlertType.ERROR);
+            alerte.setHeaderText("Impossible de charger les chansons");
+            alerte.setContentText(e.getMessage());
+            alerte.showAndWait();
+
+        }
 
     }
 
@@ -44,6 +60,8 @@ public class MainController {
 
     @FXML
     private TableColumn<Chanson, Integer> colonneEcoutes;
+
+    private final CsvChansonService csvChansonService = new CsvChansonService();
 
 
 }
