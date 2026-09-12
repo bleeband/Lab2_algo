@@ -1,11 +1,14 @@
 .root {
-    -fx-background-color: #9799ef;
-    -fx-text-fill: #292942;
+    /*-fx-background-color: #9799ef;*/
+    -fx-background-color: #fdf0d5;
+    /*-fx-text-fill: #292942;*/
+    -fx-text-fill: #003049;
 
 
 }
 
 
 #tableChansons {
-    -fx-background-color: rgb(189 189 237);
+    /*-fx-background-color: #c3c4f1;*/
+    /*-fx-background-color: #669bbc;*/
 }
