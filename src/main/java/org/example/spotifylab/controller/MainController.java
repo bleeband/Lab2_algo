@@ -28,7 +28,7 @@ public class MainController {
                 new SimpleIntegerProperty(cellule.getValue().getEcoutes()).asObject());
 
         try {
-            List<Chanson> chansons = csvChansonService.chargerChansons();
+            chansons = csvChansonService.chargerChansons();
             tableChansons.getItems().setAll(chansons); // affiche les chansons
         } catch (IOException e) {
             Alert alerte = new Alert(Alert.AlertType.ERROR);
@@ -63,5 +63,10 @@ public class MainController {
 
     private final CsvChansonService csvChansonService = new CsvChansonService();
 
+    private List<Chanson> chansons = List.of();
+
+    private int pageCourante = 0;
+
+    private int taillePage = 25;
 
 }
