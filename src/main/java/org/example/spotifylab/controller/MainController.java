@@ -29,7 +29,7 @@ public class MainController {
 
         try {
             List<Chanson> chansons = csvChansonService.chargerChansons();
-            tableChansons.getItems().setAll(chansons);
+            tableChansons.getItems().setAll(chansons); // affiche les chansons
         } catch (IOException e) {
             Alert alerte = new Alert(Alert.AlertType.ERROR);
             alerte.setHeaderText("Impossible de charger les chansons");
