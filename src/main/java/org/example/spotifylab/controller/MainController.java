@@ -17,6 +17,10 @@ public class MainController {
                 new SimpleStringProperty(cellule.getValue().getArtiste()));
         colonneAnnee.setCellValueFactory(cellule ->
                 new SimpleIntegerProperty(cellule.getValue().getAnnee()).asObject());
+        colonneDuree.setCellValueFactory(cellule ->
+                new SimpleIntegerProperty(cellule.getValue().getDureeSec()).asObject());
+        colonneEcoutes.setCellValueFactory(cellule ->
+                new SimpleIntegerProperty(cellule.getValue().getEcoutes()).asObject());
 
     }
 
@@ -34,6 +38,12 @@ public class MainController {
 
     @FXML
     private TableColumn<Chanson, Integer> colonneAnnee;
+
+    @FXML
+    private TableColumn<Chanson, Integer> colonneDuree;
+
+    @FXML
+    private TableColumn<Chanson, Integer> colonneEcoutes;
 
 
 }
