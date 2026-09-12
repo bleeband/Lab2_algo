@@ -11,6 +11,7 @@ import org.example.spotifylab.service.CsvChansonService;
 import java.io.IOException;
 import java.util.List;
 import javafx.scene.control.Alert;
+import org.example.spotifylab.service.PaginationService;
 
 public class MainController {
 
@@ -29,7 +30,7 @@ public class MainController {
 
         try {
             chansons = csvChansonService.chargerChansons();
-            tableChansons.getItems().setAll(chansons); // affiche les chansons
+            afficherPage(); // affiche les chansons
         } catch (IOException e) {
             Alert alerte = new Alert(Alert.AlertType.ERROR);
             alerte.setHeaderText("Impossible de charger les chansons");
@@ -68,5 +69,13 @@ public class MainController {
     private int pageCourante = 0;
 
     private int taillePage = 25;
+
+    private final PaginationService paginationService = new PaginationService();
+
+    private void afficherPage(){
+        List<Chanson> page = paginationService.obtenirPage(
+                chansons, pageCourante, taillePage);
+        tableChansons.getItems().setAll(page);
+    }
 
 }
