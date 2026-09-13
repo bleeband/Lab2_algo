@@ -41,6 +41,12 @@ public class Playlist {
         chansons.clear();
     }
 
+    public int getDureeTotaleSec() {
+        return chansons.stream()
+                .mapToInt(Chanson::getDureeSec)
+                .sum();
+    }
+
     public String getNom() {
         return nom;
     }
@@ -55,6 +61,6 @@ public class Playlist {
 
     @Override
     public String toString() {
-        return nom + " (" + chansons.size() + ")";
+        return nom + " (" + chansons.size() + ", " + getDureeTotaleSec() + " s)";
     }
 }
