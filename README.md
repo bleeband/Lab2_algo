@@ -9,11 +9,11 @@
 
 ## Équipe
 
-| Nom complet | Adresse courriel | Contribution principale |
-|-------------|------------------|--------------------------|
-| [A COMPLETER : Nom Prénom 1] | [courriel1] | [ex : Modèle, Service, Tris] |
-| Eva Bessette | courriel@courriel.com | UI FXML, Controller, CSS |
-| [A COMPLETER : Nom Prénom 3 si équipe de 3] | [courriel3] | [ex : Algorithmes, Benchmark] |
+| Nom complet | Adresse courriel | Contribution principale        |
+|-------------|------------------|--------------------------------|
+| Eva Bessette |  | UI FXML, Controller, CSS, Recherche |
+| Marc-André Dufour |  | Algorithmes, Benchmark         |
+| Charles Legault |  | Modèle, Service, Filtres,  Tests |
 
 ---
 
@@ -39,19 +39,19 @@
 ### ✅ Obligatoires (cocher ce qui est fait)
 
 - [x] Architecture MVC avec packages séparés (model / service / algorithmes / controller / util)
-- [x] Chargement des données depuis fichier CSV (nombre de lignes : [A COMPLETER])
+- [x] Chargement des données depuis fichier CSV (nombre de lignes : 494)
 - [x] Interface JavaFX principale avec liste/tableau
 - [x] Panneau détail affichant l'élément sélectionné
 - [x] Pagination fonctionnelle (taille de page : 25 chansons)
-- [ ] Filtres multi-critères combinables (nombre implémentés : [A COMPLETER] / [nombre demandé])
-- [ ] Recherche par texte en temps réel
-- [ ] Interface Algorithme définie
-- [ ] Tri #1 implémenté : [A COMPLETER : nom du tri]
-- [ ] Tri #2 implémenté : [A COMPLETER]
-- [ ] Tri #3 implémenté : [A COMPLETER]
+- [x] Filtres multi-critères combinables (nombre implémentés : 4 / 4)
+- [x] Recherche par texte en temps réel
+- [x] Interface Algorithme définie
+- [x] Tri #1 implémenté : Tri par insertion
+- [x] Tri #2 implémenté : Tri fusion
+- [x] Tri #3 implémenté : Tri rapide
 - [ ] Comparateur/benchmark des tris avec mesure du temps
 - [ ] Wishlist / Favoris (ajout, retrait, pas de doublons)
-- [ ] CSS appliqué (thème visuel du projet)
+- [x] CSS appliqué (thème visuel du projet)
 
 ### 🎁 Bonus (cocher ce qui est fait)
 
@@ -61,31 +61,39 @@
 
 ### ❌ Non implémenté (assumer honnêtement)
 
-- [A COMPLETER : liste ce qui n'a pas été fait et pourquoi, ex. "Recherche insensible aux accents — manque de temps"]
 
 ---
 
 ## Structure du projet
 
 ```
-[A COMPLETER : arborescence de ton projet, ex.]
-
-netflix-catalog/
+Lab2_algo/
 ├── pom.xml
-├── src/main/
-│   ├── java/
-│   │   ├── module-info.java
-│   │   └── netflix/
-│   │       ├── MainFx.java
-│   │       ├── model/
-│   │       ├── service/
-│   │       ├── algorithmes/
-│   │       ├── controller/
-│   │       └── util/
-│   └── resources/
-│       ├── fxml/principal.fxml
-│       ├── styles/theme.css
-│       └── data/films.csv
+├── README.md
+├── screenshots/
+│   ├── benchmark.png
+│   ├── filtres-recherche.png
+│   └── principal.png
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── module-info.java
+│   │   │   └── org/example/spotifylab/
+│   │   │       ├── MainFx.java
+│   │   │       ├── model/
+│   │   │       ├── service/
+│   │   │       ├── algorithmes/
+│   │   │       ├── controller/
+│   │   │       └── util/
+│   │   └── resources/
+│   │       └── org/example/spotifylab/
+│   │           ├── data/chansons.csv
+│   │           ├── fxml/main.fxml
+│   │           └── styles/style.css
+│   └── test/
+│       └── java/org/example/spotifylab/service/
+│           ├── ChansonServiceTest.java
+│           └── CsvChansonServiceTest.java
 ```
 
 ---
@@ -95,15 +103,15 @@ netflix-catalog/
 ### Prérequis
 
 - JDK 21
-- Maven [A COMPLETER : version 3.x]
+- Maven 3.8.5
 - IntelliJ IDEA
 
 ### Étapes
 
 ```bash
 # 1. Cloner le dépôt
-git clone [URL DU DEPOT]
-cd [nom-du-dossier]
+git clone https://github.com/bleeband/Lab2_algo.git
+cd Lab2_algo
 
 # 2. Compiler
 mvn clean compile
@@ -124,83 +132,60 @@ mvn javafx:run
 ## Choix techniques
 
 ### Version Java utilisée
-[A COMPLETER : ex. Java 21 avec JavaFX 21]
+Java 21 avec JavaFX 21.0.6
 
 ### Format des données
-[A COMPLETER : CSV / JSON, séparateur, encodage, nombre de lignes]
+CSV, séparateur point-virgule (;), encodage UTF-8, 494 chansons
 
 ### Algorithmes de tri implémentés
-[A COMPLETER : lister les 3+ tris avec leur complexité théorique]
+- Tri par insertion : O(n²)
+- Tri fusion : O(n log n)
+- Tri rapide : O(n log n) en moyenne, O(n²) dans le pire cas
 
 ### Bibliothèques externes utilisées
-[A COMPLETER : liste des dépendances Maven au-delà de JavaFX]
+JUnit 5.12.1 pour les tests
 
 ---
 
 ## Difficultés rencontrées
 
-[A COMPLETER : décrire les 2-3 principales difficultés rencontrées et comment vous les avez résolues. Cette section n'est pas notée, mais elle nous aide à améliorer les prochains labos.]
 
 ---
 
 ## Répartition du travail (auto-évaluation)
 
-| Membre | % contribution estimée | Ce sur quoi j'ai travaillé |
-|--------|-----------------------|------------------------------|
-| [Nom 1] | [ex : 50%] | [description] |
-| [Nom 2] | [ex : 50%] | [description] |
-| [Nom 3] | [si applicable] | [description] |
+| Membre | % contribution estimée | Ce sur quoi j'ai travaillé                       |
+|--------|-----------------------|--------------------------------------------------|
+| Eva Bessette |  | UI FXML, Controller, CSS, recherche                       |
+| Marc-André Dufour |  | Algorithmes de tri, Benchmark                    |
+| Charles Legault | 33,3 % | Modèle, services, filtres, tests |
 
 ---
 
 ## Notes pour le correcteur
 
-[A COMPLETER (optionnel) : commentaires utiles pour le correcteur, ex. "Le benchmark est accessible via le menu Outils > Comparer les tris"]
 
 ---
 
 ## Captures d'écran (fortement recommandé)
 
-[A COMPLETER (fortement recommandé) : mettre 2-3 captures d'écran de l'application dans un dossier `screenshots/` du dépôt et les référencer ici]
-
-Exemple :
-```markdown
 ### Écran principal
 ![Écran principal](screenshots/principal.png)
 
-### Écran de benchmark
+### Filtres et recherche
+![Filtres et recherche](screenshots/filtres-recherche.png)
+
+### Benchmark
 ![Benchmark](screenshots/benchmark.png)
-```
 
 ---
 
 ## Historique Git
 
-**Nombre total de commits** : [A COMPLETER : ex. 47]
-**Date du premier commit** : [A COMPLETER]
-**Date du dernier commit** : [A COMPLETER]
+**Nombre total de commits** : 73
+**Date du premier commit** : 26 août 2026
+**Date du dernier commit** : 13 septembre 2026
 
 Voir l'onglet **Insights > Contributors** de GitHub pour voir la contribution de chacun.
 
 ---
-
-<!--
-====================================================================
-  CHECKLIST FINALE AVANT LA REMISE (a supprimer avant remise)
-====================================================================
-
-[ ] Tous les [A COMPLETER] ont ete remplaces par de vrais contenus
-[ ] Tous les commentaires HTML <!-- ... --> ont ete supprimes
-[ ] Le lien GitHub est valide (teste dans un navigateur prive)
-[ ] Le depot est PUBLIC (pas Prive)
-[ ] Le README.md est bien present a la RACINE du depot
-[ ] Le projet compile avec "mvn clean compile" sans erreur
-[ ] Le projet lance avec "mvn javafx:run" sans erreur
-[ ] Les donnees (CSV) sont dans src/main/resources/data/
-[ ] Le .gitignore exclut target/, .idea/, out/
-[ ] Chaque membre de l'equipe a des commits a son nom
-[ ] Ce fichier README rempli a ete deposé sur Teams
-
-DATE LIMITE : 11 septembre 2026, 23h59
-====================================================================
--->
