@@ -13,7 +13,7 @@ import java.util.List;
 import org.example.spotifylab.service.PaginationService;
 import org.example.spotifylab.service.ChansonService;
 
-import javafx.util.StringConverter;
+import org.example.spotifylab.util.ConvertisseursFiltres;
 
 public class MainController {
 
@@ -51,35 +51,9 @@ public class MainController {
             }
         });
 
-        comboArtiste.setConverter(new StringConverter<String>() {
-            @Override
-            public String toString(String artiste) {
-                if (artiste == null) {
-                    return "Artiste";
-                }
-                return artiste;
-            }
-
-            @Override
-            public String fromString(String texte) {
-                return null;
-            }
-        });
-
-        comboDecennie.setConverter(new StringConverter<Integer>() {
-            @Override
-            public String toString(Integer decennie) {
-                if (decennie == null) {
-                    return "Décennie";
-                }
-                return String.valueOf(decennie);
-            }
-
-            @Override
-            public Integer fromString(String texte) {
-                return null;
-            }
-        });
+        comboGenre.setConverter(ConvertisseursFiltres.pourGenre());
+        comboArtiste.setConverter(ConvertisseursFiltres.pourArtiste());
+        comboDecennie.setConverter(ConvertisseursFiltres.pourDecennie());
 
         comboGenre.setPromptText("Genre");
         comboArtiste.setPromptText("Artiste");
