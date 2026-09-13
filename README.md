@@ -9,11 +9,11 @@
 
 ## Équipe
 
-| Nom complet | Adresse courriel | Contribution principale        |
-|-------------|------------------|--------------------------------|
-| Eva Bessette |  | UI FXML, Controller, CSS, Recherche |
-| Marc-André Dufour |  | Algorithmes, Benchmark         |
-| Charles Legault |  | Modèle, Service, Filtres,  Tests |
+| Nom complet | Adresse courriel | Contribution principale                         |
+|-------------|------------------|-------------------------------------------------|
+| Eva Bessette |  | UI FXML, Controller, CSS, Recherche, Pagination |
+| Marc-André Dufour |  | Algorithmes, Benchmark                          |
+| Charles Legault |  | Modèle, Service, Filtres,  Tests                |
 
 ---
 
@@ -72,7 +72,7 @@ Lab2_algo/
 ├── README.md
 ├── screenshots/
 │   ├── benchmark.png
-│   ├── filtres-recherche.png
+│   ├── filtres.png
 │   └── principal.png
 ├── src/
 │   ├── main/
@@ -154,11 +154,11 @@ JUnit 5.12.1 pour les tests
 
 ## Répartition du travail (auto-évaluation)
 
-| Membre | % contribution estimée | Ce sur quoi j'ai travaillé                       |
-|--------|------------------------|--------------------------------------------------|
-| Eva Bessette | 33,3 %                 | UI FXML, Controller, CSS, recherche                       |
-| Marc-André Dufour | 33,3 %                 | Algorithmes de tri, Benchmark                    |
-| Charles Legault | 33,3 %                 | Modèle, services, filtres, tests |
+| Membre | % contribution estimée | Ce sur quoi j'ai travaillé             |
+|--------|------------------------|----------------------------------------|
+| Eva Bessette | 33,3 %                 | UI FXML, Controller, CSS, recherche, pagination |
+| Marc-André Dufour | 33,3 %                 | Algorithmes de tri, Benchmark          |
+| Charles Legault | 33,3 %                 | Modèle, services, filtres, tests       |
 
 ---
 
@@ -172,8 +172,11 @@ JUnit 5.12.1 pour les tests
 ### Écran principal
 ![Écran principal](screenshots/principal.png)
 
-### Filtres et recherche
-![Filtres et recherche](screenshots/filtres-recherche.png)
+### Filtres
+![Filtres](screenshots/filtres.png)
+
+### Recherche
+![Recherche](screenshots/recherche.png)
 
 ### Benchmark
 ![Benchmark](screenshots/benchmark.png)
