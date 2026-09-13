@@ -247,8 +247,8 @@ public class MainController {
             detailAlbum.setText(chanson.getAlbum());
             detailGenre.setText(String.valueOf(chanson.getGenre()));
             detailAnnee.setText(String.valueOf(chanson.getAnnee()));
-            detailDuree.setText(String.valueOf(chanson.getDureeSec()));
-            detailEcoutes.setText(String.valueOf(chanson.getEcoutes()));
+            detailDuree.setText("durée : " + chanson.getDureeSec());
+            detailEcoutes.setText("écoutes : " + chanson.getEcoutes());
         }
     }
 
@@ -274,4 +274,3 @@ public class MainController {
         afficherPage();
     }
 }
-
