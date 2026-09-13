@@ -84,7 +84,7 @@
          <children>
             <TableView fx:id="tableChansons" VBox.vgrow="ALWAYS">
                <columns>
-                  <TableColumn fx:id="colonneTitre" prefWidth="200.0" sortable="true" text="Titre" />
+                  <TableColumn fx:id="colonneTitre" prefWidth="200.0" sortable="true" text="Titre"/>
                   <TableColumn fx:id="colonneArtiste" prefWidth="140.0" sortable="true" text="Artiste" />
                   <TableColumn fx:id="colonneAnnee" prefWidth="80.0" sortable="true" styleClass="colonne-centree" text="Année" />
                   <TableColumn fx:id="colonneDuree" prefWidth="80.0" sortable="true" styleClass="colonne-centree" text="Durée" />
