@@ -231,8 +231,16 @@ public class MainController {
     @FXML
     private Label detailEcoutes;
 
+    @FXML
+    private Label lecteurTitre;
+
+    @FXML
+    private Label lecteurArtiste;
+
     private void afficherDetails(Chanson chanson) {
         if (chanson == null) {
+            lecteurTitre.setText("");
+            lecteurArtiste.setText("");
             detailTitre.setText("");
             detailArtiste.setText("");
             detailAlbum.setText("");
@@ -242,6 +250,8 @@ public class MainController {
             detailEcoutes.setText("");
         }
         else {
+            lecteurTitre.setText(chanson.getTitre());
+            lecteurArtiste.setText(chanson.getArtiste());
             detailTitre.setText(chanson.getTitre());
             detailArtiste.setText(chanson.getArtiste());
             detailAlbum.setText(chanson.getAlbum());
