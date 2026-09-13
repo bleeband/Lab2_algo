@@ -49,7 +49,7 @@
 - [x] Tri #1 implémenté : Tri par insertion
 - [x] Tri #2 implémenté : Tri fusion
 - [x] Tri #3 implémenté : Tri rapide
-- [ ] Comparateur/benchmark des tris avec mesure du temps
+- [X] Comparateur/benchmark des tris avec mesure du temps
 - [ ] Wishlist / Favoris (ajout, retrait, pas de doublons)
 - [x] CSS appliqué (thème visuel du projet)
 
@@ -182,7 +182,7 @@ JUnit 5.12.1 pour les tests
 
 ## Historique Git
 
-**Nombre total de commits** : 73
+**Nombre total de commits** : 87
 **Date du premier commit** : 26 août 2026
 **Date du dernier commit** : 13 septembre 2026
 
