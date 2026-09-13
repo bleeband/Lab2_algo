@@ -46,11 +46,6 @@
     -fx-text-fill: white;
 }
 
-#detailTitre, #lecteurTitre {
-    -fx-font-weight: bold;
-    -fx-font-weight: 900;
-}
-
 #detailTitre {
     -fx-font-size: 18px;
 }
