@@ -36,21 +36,6 @@ public class MainController {
         comboArtiste.getItems().add(0, null);
         comboDecennie.getItems().add(0, null);
 
-        comboGenre.setConverter(new StringConverter<Genre>() {
-            @Override
-            public String toString(Genre genre) {
-                if (genre == null) {
-                    return "Genre";
-                }
-                return genre.name();
-            }
-
-            @Override
-            public Genre fromString(String texte) {
-                return null;
-            }
-        });
-
         comboGenre.setConverter(ConvertisseursFiltres.pourGenre());
         comboArtiste.setConverter(ConvertisseursFiltres.pourArtiste());
         comboDecennie.setConverter(ConvertisseursFiltres.pourDecennie());
