@@ -1,12 +1,9 @@
 package org.example.spotifylab.service;
 
-import org.example.spotifylab.model.Chanson;
-
 import java.util.List;
 
-public class PaginationService {
-
-    public List<Chanson> obtenirPage(List<Chanson> chansons, int pageCourante, int taillePage) {
+public class PaginationService<T> {
+    public List<T> obtenirPage(List<T> chansons, int pageCourante, int taillePage) {
 
         if (pageCourante < 0 || taillePage <= 0) {
             throw new IllegalArgumentException("Page ou taille de page invalide");

@@ -12,3 +12,7 @@
     /*-fx-background-color: #c3c4f1;*/
     /*-fx-background-color: #669bbc;*/
 }
+
+.colonne-centree {
+    -fx-alignment: CENTER;
+}

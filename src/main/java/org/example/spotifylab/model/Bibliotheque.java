@@ -8,26 +8,20 @@ public class Bibliotheque {
     private List<Chanson> chansons;
     private List<Playlist> playlists;
 
-    public Bibliotheque() {
-        chansons = new ArrayList<>();
-        playlists = new ArrayList<>();
+    public Bibliotheque(List<Chanson> chansons) {
+        this.chansons = new ArrayList<>(chansons);
+        this.playlists = new ArrayList<>();
     }
 
-    public void ajouterChanson(Chanson chanson) {
-        chansons.add(chanson);
+    public boolean supprimerPlaylist(Playlist playlist) {
+        return playlists.remove(playlist);
     }
 
-    public void ajouterChansons(List<Chanson> nouvellesChansons) {
-        chansons.addAll(nouvellesChansons);
-    }
-
-    public void creerPlaylist(String nom) {
-        Playlist playlist = new Playlist(nom);
-        playlists.add(playlist);
-    }
-
-    public void supprimerPlaylist(Playlist playlist) {
-        playlists.remove(playlist);
+    public boolean ajouterPlaylist(Playlist playlist) {
+        if (playlist == null || playlists.stream().anyMatch(p -> p.getNom().equalsIgnoreCase(playlist.getNom()))) {
+            return false;
+        }
+        return playlists.add(playlist);
     }
 
     public List<Chanson> getChansons() {
