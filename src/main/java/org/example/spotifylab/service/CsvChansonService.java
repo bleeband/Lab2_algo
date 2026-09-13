@@ -11,7 +11,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CsvChansonService {
+public class CsvChansonService implements SourceDonnees {
+    @Override
     public List<Chanson> chargerChansons() throws IOException {
         List<Chanson> chansons = new ArrayList<>();
         InputStream fichier = getClass().getResourceAsStream(
