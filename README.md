@@ -149,7 +149,7 @@ JUnit 5.12.1 pour les tests
 
 ## Difficultés rencontrées
 
-
+Eva : Pas réussi à mettre certains textes en "bold" avec CSS.
 ---
 
 ## Répartition du travail (auto-évaluation)
