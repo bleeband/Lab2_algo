@@ -16,34 +16,29 @@ public class Playlist {
         this.dateCreation = LocalDate.now();
     }
 
-    public void ajouterChanson(Chanson chanson) {
-        if (!chansons.contains(chanson)) {
-            chansons.add(chanson);
+    public boolean ajouter(Chanson chanson) {
+        if (chanson == null || chansons.contains(chanson)) {
+            return false;
         }
-    }
-    public void retirerChanson(Chanson chanson) {
-        chansons.remove(chanson);
-    }
-    public void monterChanson(int index) {
-        if (index > 0 && index < chansons.size()) {
-            Collections.swap(chansons, index, index - 1);
-        }
-    }
-    public void descendreChanson(int index) {
-        if (index >= 0 && index < chansons.size() - 1) {
-            Collections.swap(chansons, index, index + 1);
-        }
-    }
-    public void vider() {
-        chansons.clear();
+        chansons.add(chanson);
+        return true;
     }
 
-    public int getDureeTotaleSec() {
-        int total = 0;
-        for (Chanson chanson : chansons) {
-            total += chanson.getDureeSec();
+    public boolean retirer(Chanson chanson) {
+        return chansons.remove(chanson);
+    }
+
+    public boolean deplacer(int index, int direction) {
+        int nouvelIndex = index + direction;
+        if (index < 0 || index >= chansons.size() || nouvelIndex < 0 || nouvelIndex >= chansons.size()) {
+            return false;
         }
-        return total;
+        Collections.swap(chansons, index, nouvelIndex);
+        return true;
+    }
+
+    public void vider() {
+        chansons.clear();
     }
 
     public String getNom() {
@@ -56,5 +51,10 @@ public class Playlist {
 
     public LocalDate getDateCreation() {
         return dateCreation;
+    }
+
+    @Override
+    public String toString() {
+        return nom + " (" + chansons.size() + ")";
     }
 }

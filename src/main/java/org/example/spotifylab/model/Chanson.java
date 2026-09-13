@@ -2,7 +2,7 @@ package org.example.spotifylab.model;
 
 public class Chanson {
 
-    private int id;
+    private long id;
     private String titre;
     private String artiste;
     private String album;
@@ -11,7 +11,7 @@ public class Chanson {
     private int dureeSec;
     private int ecoutes;
 
-    public Chanson(int id, String titre, String artiste, String album,
+    public Chanson(long id, String titre, String artiste, String album,
                    int annee, Genre genre, int dureeSec, int ecoutes) {
 
         this.id = id;
@@ -24,7 +24,7 @@ public class Chanson {
         this.ecoutes = ecoutes;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
