@@ -38,11 +38,11 @@
 
 ### ✅ Obligatoires (cocher ce qui est fait)
 
-- [ ] Architecture MVC avec packages séparés (model / service / algorithmes / controller / util)
-- [ ] Chargement des données depuis fichier CSV (nombre de lignes : [A COMPLETER])
-- [ ] Interface JavaFX principale avec liste/tableau
-- [ ] Panneau détail affichant l'élément sélectionné
-- [ ] Pagination fonctionnelle (taille de page : [A COMPLETER])
+- [x] Architecture MVC avec packages séparés (model / service / algorithmes / controller / util)
+- [x] Chargement des données depuis fichier CSV (nombre de lignes : [A COMPLETER])
+- [x] Interface JavaFX principale avec liste/tableau
+- [x] Panneau détail affichant l'élément sélectionné
+- [x] Pagination fonctionnelle (taille de page : 25 chansons)
 - [ ] Filtres multi-critères combinables (nombre implémentés : [A COMPLETER] / [nombre demandé])
 - [ ] Recherche par texte en temps réel
 - [ ] Interface Algorithme définie
@@ -94,9 +94,9 @@ netflix-catalog/
 
 ### Prérequis
 
-- JDK [A COMPLETER : 17 ou 21]
+- JDK 21
 - Maven [A COMPLETER : version 3.x]
-- (optionnel) IntelliJ IDEA / Eclipse
+- IntelliJ IDEA
 
 ### Étapes
 
