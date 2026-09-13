@@ -33,6 +33,9 @@ public class MainController {
         comboGenre.getItems().setAll(Genre.values());
         comboGenre.getItems().add(0, null);
 
+        comboArtiste.getItems().add(0, null);
+        comboDecennie.getItems().add(0, null);
+
         comboGenre.setConverter(new StringConverter<Genre>() {
             @Override
             public String toString(Genre genre) {
@@ -48,7 +51,43 @@ public class MainController {
             }
         });
 
+        comboArtiste.setConverter(new StringConverter<String>() {
+            @Override
+            public String toString(String artiste) {
+                if (artiste == null) {
+                    return "Artiste";
+                }
+                return artiste;
+            }
+
+            @Override
+            public String fromString(String texte) {
+                return null;
+            }
+        });
+
+        comboDecennie.setConverter(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer decennie) {
+                if (decennie == null) {
+                    return "Décennie";
+                }
+                return String.valueOf(decennie);
+            }
+
+            @Override
+            public Integer fromString(String texte) {
+                return null;
+            }
+        });
+
         comboGenre.setPromptText("Genre");
+        comboArtiste.setPromptText("Artiste");
+        comboDecennie.setPromptText("Décennie");
+        sliderDuree.setBlockIncrement(20);
+        sliderDuree.setMin(0);
+        sliderDuree.setMax(600);
+        sliderDuree.setValue(600);
 
         tableChansons.getSelectionModel().selectedItemProperty().addListener(
                 (observable, ancienneChanson, nouvelleChanson) ->
@@ -60,6 +99,15 @@ public class MainController {
 
         comboGenre.valueProperty().addListener(
                 (observable, ancienGenre, nouveauGenre) -> appliquerFiltres());
+
+        comboArtiste.valueProperty().addListener(
+                (observable, ancienArtiste, nouvelArtiste) -> appliquerFiltres());
+
+        comboDecennie.valueProperty().addListener(
+                (observable, ancienneDecenie, nouvelleDecennie) -> appliquerFiltres());
+
+        sliderDuree.valueProperty().addListener(
+                (observable, ancienneDuree, nouvelleDuree) -> appliquerFiltres());
 
 
         try {
@@ -137,8 +185,16 @@ public class MainController {
     }
 
     private void appliquerFiltres(){
+        Integer dureeMax;
+
+        if (sliderDuree.getValue() >= sliderDuree.getMax()) {
+            dureeMax = null;
+        }
+        else {
+            dureeMax = (int) Math.round(sliderDuree.getValue());
+        }
         chansonsFiltrees = chansonService.rechercher(chansons, champRecherche.getText());
-        chansonsFiltrees = chansonService.filtrer(chansonsFiltrees, comboGenre.getValue(), null, null, null, null);
+        chansonsFiltrees = chansonService.filtrer(chansonsFiltrees, comboGenre.getValue(), comboDecennie.getValue(), comboArtiste.getValue(), dureeMax, null);
         pageCourante = 0;
         afficherPage();
     }
@@ -220,6 +276,14 @@ public class MainController {
     @FXML
     private ComboBox<Genre> comboGenre;
 
+    @FXML
+    private ComboBox<Integer> comboDecennie;
+
+    @FXML
+    private ComboBox<String> comboArtiste;
+
+    @FXML
+    private Slider sliderDuree;
 
 
 
