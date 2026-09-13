@@ -24,6 +24,12 @@ public class BenchmarkService {
         }
         return resultats;
     }
+
+    public List<ResultatBenchmark> mesurer(List<Chanson> chansons,
+                                           List<AlgorithmeTri<Chanson>> algorithmes,
+                                           CritereTri critere) {
+        return mesurer(chansons, algorithmes, critere.getComparateur());
+    }
 }
 
 // Code de Marc-André:
