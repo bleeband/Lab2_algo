@@ -89,6 +89,17 @@ public class MainController {
         try {
             chansons = csvChansonService.chargerChansons();
             chansonsFiltrees = chansons;
+            chansons.stream()
+                    .map(Chanson::getArtiste)
+                    .distinct()
+                    .sorted(String.CASE_INSENSITIVE_ORDER)
+                    .forEach(comboArtiste.getItems()::add);
+
+            chansons.stream()
+                    .map(chanson -> (chanson.getAnnee() / 10) * 10)
+                    .distinct()
+                    .sorted()
+                    .forEach(comboDecennie.getItems()::add);
             afficherPage(); // affiche les chansons
         } catch (IOException e) {
             Alert alerte = new Alert(Alert.AlertType.ERROR);

@@ -48,7 +48,7 @@ public class ConvertisseursFiltres {
                 if (decennie == null) {
                     return "Décennie";
                 } else {
-                    return String.valueOf(decennie);
+                    return decennie + "s";
                 }
             }
 
