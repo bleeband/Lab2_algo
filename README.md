@@ -155,10 +155,10 @@ JUnit 5.12.1 pour les tests
 ## Répartition du travail (auto-évaluation)
 
 | Membre | % contribution estimée | Ce sur quoi j'ai travaillé                       |
-|--------|-----------------------|--------------------------------------------------|
-| Eva Bessette |  | UI FXML, Controller, CSS, recherche                       |
-| Marc-André Dufour |  | Algorithmes de tri, Benchmark                    |
-| Charles Legault | 33,3 % | Modèle, services, filtres, tests |
+|--------|------------------------|--------------------------------------------------|
+| Eva Bessette | 33,3 %                 | UI FXML, Controller, CSS, recherche                       |
+| Marc-André Dufour | 33,3 %                 | Algorithmes de tri, Benchmark                    |
+| Charles Legault | 33,3 %                 | Modèle, services, filtres, tests |
 
 ---
 
