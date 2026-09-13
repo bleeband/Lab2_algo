@@ -15,6 +15,11 @@ import org.example.spotifylab.service.ChansonService;
 
 import org.example.spotifylab.util.ConvertisseursFiltres;
 
+import org.example.spotifylab.algorithmes.AlgorithmeTri;
+import org.example.spotifylab.algorithmes.TriFusion;
+
+import java.util.Comparator;
+
 public class MainController {
 
     @FXML
@@ -52,6 +57,18 @@ public class MainController {
                 (observable, ancienneChanson, nouvelleChanson) ->
                         afficherDetails(nouvelleChanson));
         afficherDetails(null);
+
+        tableChansons.setSortPolicy(table -> {
+            Comparator<Chanson> comparateur = table.getComparator();
+
+            if (comparateur != null) {
+                appliquerTri(comparateur);
+            } else {
+                appliquerFiltres();
+            }
+
+            return true;
+        });
 
         champRecherche.textProperty().addListener(
                 (observable, ancienTexte, nouveauTexte) -> appliquerFiltres());
@@ -104,9 +121,6 @@ public class MainController {
     @FXML
     private TableColumn<Chanson, Integer> colonneEcoutes;
 
-
-
-
     // affichage chansons
 
     private final CsvChansonService csvChansonService = new CsvChansonService();
@@ -120,6 +134,8 @@ public class MainController {
 
     private final PaginationService paginationService = new PaginationService();
     private final ChansonService chansonService = new ChansonService();
+
+    private final AlgorithmeTri<Chanson> algorithmeTri = new TriFusion<>();
 
     private void afficherPage(){
         List<Chanson> page = paginationService.obtenirPage(
@@ -154,8 +170,14 @@ public class MainController {
         }
         chansonsFiltrees = chansonService.rechercher(chansons, champRecherche.getText());
         chansonsFiltrees = chansonService.filtrer(chansonsFiltrees, comboGenre.getValue(), comboDecennie.getValue(), comboArtiste.getValue(), dureeMax, null);
-        pageCourante = 0;
-        afficherPage();
+        Comparator<Chanson> comparateur = tableChansons.getComparator();
+
+        if (comparateur != null) {
+            appliquerTri(comparateur);
+        } else {
+            pageCourante = 0;
+            afficherPage();
+        }
     }
 
     // boutons précedent/suivant + Page 1/1
@@ -244,8 +266,12 @@ public class MainController {
     @FXML
     private Slider sliderDuree;
 
+    // fonctionnalités tri par algorithme
 
-
-
-
+    private void appliquerTri(Comparator<Chanson> comparateur) {
+        chansonsFiltrees = algorithmeTri.trier(chansonsFiltrees, comparateur);
+        pageCourante = 0;
+        afficherPage();
+    }
 }
+
