@@ -1,3 +1,7 @@
+\encoding UTF8
+
+TRUNCATE TABLE playlist_chanson, playlist, chanson, artiste RESTART IDENTITY CASCADE;
+
 DROP TABLE IF EXISTS import_chanson;
 
 CREATE TABLE import_chanson (
@@ -12,23 +16,7 @@ CREATE TABLE import_chanson (
 );
 
 
-COPY import_chanson (
-    id,
-    titre,
-    artiste,
-    album,
-    annee,
-    genre,
-    duree_sec,
-    ecoutes
-    )
-    FROM 'METTRE LE PATH DU CSV ICI'
-    WITH (
-    FORMAT CSV,
-    HEADER TRUE,
-    DELIMITER ';',
-    ENCODING 'UTF8'
-    );
+\copy import_chanson (id, titre, artiste, album, annee, genre, duree_sec, ecoutes) FROM 'src/main/resources/org/example/spotifylab/data/chansons.csv' WITH (FORMAT csv, HEADER true, DELIMITER ';')
 
 INSERT INTO artiste (nom)
 SELECT DISTINCT artiste
@@ -57,5 +45,8 @@ SELECT
 FROM import_chanson i
          JOIN artiste a
               ON a.nom = i.artiste;
+
+SELECT setval(pg_get_serial_sequence('chanson', 'id'), COALESCE(MAX(id), 1))
+FROM chanson;
 
 DROP TABLE import_chanson;
