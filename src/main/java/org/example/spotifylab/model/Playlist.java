@@ -6,14 +6,20 @@ import java.util.Collections;
 import java.util.List;
 
 public class Playlist {
+    private long id;
     private String nom;
     private List<Chanson> chansons;
     private LocalDate dateCreation;
 
     public Playlist(String nom) {
+        this(0, nom, LocalDate.now());
+    }
+
+    public Playlist(long id, String nom, LocalDate dateCreation) {
+        this.id = id;
         this.nom = nom;
         this.chansons = new ArrayList<>();
-        this.dateCreation = LocalDate.now();
+        this.dateCreation = dateCreation;
     }
 
     public boolean ajouter(Chanson chanson) {
@@ -49,6 +55,14 @@ public class Playlist {
 
     public String getNom() {
         return nom;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public List<Chanson> getChansons() {
