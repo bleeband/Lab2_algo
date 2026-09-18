@@ -80,6 +80,8 @@ final class PlaylistController {
                 actualiser(service.creer(nom));
             } catch (IllegalArgumentException exception) {
                 afficherErreur.accept("Playlist invalide", exception.getMessage());
+            } catch (IllegalStateException exception) {
+                afficherErreur.accept("Sauvegarde impossible", exception.getMessage());
             }
         });
     }
@@ -87,8 +89,12 @@ final class PlaylistController {
     private void supprimerPlaylist() {
         Playlist playlist = playlistActive();
         if (playlist != null) {
-            service.supprimer(playlist);
-            actualiser(null);
+            try {
+                service.supprimer(playlist);
+                actualiser(null);
+            } catch (IllegalStateException exception) {
+                afficherErreur.accept("Sauvegarde impossible", exception.getMessage());
+            }
         }
     }
 
@@ -101,8 +107,13 @@ final class PlaylistController {
             return;
         }
 
-        if (!service.ajouter(playlist, chanson)) {
-            afficherErreur.accept("Ajout impossible", "Cette chanson est deja dans la playlist.");
+        try {
+            if (!service.ajouter(playlist, chanson)) {
+                afficherErreur.accept("Ajout impossible", "Cette chanson est deja dans la playlist.");
+                return;
+            }
+        } catch (IllegalStateException exception) {
+            afficherErreur.accept("Sauvegarde impossible", exception.getMessage());
             return;
         }
 
@@ -112,15 +123,25 @@ final class PlaylistController {
     private void retirerSelectionDePlaylist() {
         Playlist playlist = playlistActive();
         Chanson chanson = chansonsPlaylist.getSelectionModel().getSelectedItem();
-        if (playlist != null && chanson != null && service.retirer(playlist, chanson)) {
-            actualiser(playlist);
+        try {
+            if (playlist != null && chanson != null && service.retirer(playlist, chanson)) {
+                actualiser(playlist);
+            }
+        } catch (IllegalStateException exception) {
+            afficherErreur.accept("Sauvegarde impossible", exception.getMessage());
         }
     }
 
     private void deplacerSelection(int direction) {
         Playlist playlist = playlistActive();
         int index = chansonsPlaylist.getSelectionModel().getSelectedIndex();
-        boolean deplace = direction < 0 ? service.monter(playlist, index) : service.descendre(playlist, index);
+        boolean deplace;
+        try {
+            deplace = direction < 0 ? service.monter(playlist, index) : service.descendre(playlist, index);
+        } catch (IllegalStateException exception) {
+            afficherErreur.accept("Sauvegarde impossible", exception.getMessage());
+            return;
+        }
 
         if (deplace) {
             actualiser(playlist);

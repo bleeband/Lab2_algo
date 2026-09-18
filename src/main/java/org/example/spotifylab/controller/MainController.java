@@ -26,9 +26,10 @@ import org.example.spotifylab.model.Chanson;
 import org.example.spotifylab.model.Genre;
 import org.example.spotifylab.model.Playlist;
 import org.example.spotifylab.service.ChansonService;
-import org.example.spotifylab.service.CsvChansonService;
+import org.example.spotifylab.service.ConfigurationSourceDonnees;
 import org.example.spotifylab.service.PaginationService;
 import org.example.spotifylab.service.PlaylistService;
+import org.example.spotifylab.service.SourceDonnees;
 import org.example.spotifylab.util.ConvertisseursFiltres;
 import org.example.spotifylab.util.FormateurDuree;
 
@@ -81,7 +82,7 @@ public class MainController {
     @FXML private Button boutonDescendrePlaylist;
     @FXML private Button boutonBenchmark;
 
-    private final CsvChansonService csvChansonService = new CsvChansonService();
+    private final SourceDonnees sourceDonnees = ConfigurationSourceDonnees.creer();
     private final PaginationService paginationService = new PaginationService();
     private final ChansonService chansonService = new ChansonService();
     private final AlgorithmeTri<Chanson> algorithmeTri = new TriFusion<>();
@@ -180,10 +181,12 @@ public class MainController {
 
     private void chargerChansons() {
         try {
-            chansons = csvChansonService.chargerChansons();
+            chansons = sourceDonnees.chargerChansons();
             chansonsFiltrees = chansons;
             remplirFiltresDepuisChansons();
-            PlaylistService playlistService = new PlaylistService(new Bibliotheque(chansons));
+            PlaylistService playlistService = new PlaylistService(
+                    new Bibliotheque(chansons),
+                    ConfigurationSourceDonnees.creerPlaylistDao());
             new PlaylistController(
                     listePlaylists, listeChansonsPlaylist, comboAjoutPlaylist, labelDureePlaylist,
                     boutonNouvellePlaylist, boutonSupprimerPlaylist, boutonAjouter,
