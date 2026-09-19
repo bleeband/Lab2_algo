@@ -1,0 +1,3 @@
+db.url=jdbc:postgresql://localhost:5432/spotify_lab
+db.user=votre_utilisateur
+db.password=votre_mot_de_passe

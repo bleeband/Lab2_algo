@@ -84,6 +84,7 @@ Lab2_algo/
 │   │   │       ├── service/
 │   │   │       ├── algorithmes/
 │   │   │       ├── controller/
+│   │   │       ├── dao/
 │   │   │       └── util/
 │   │   └── resources/
 │   │       └── org/example/spotifylab/
@@ -104,6 +105,7 @@ Lab2_algo/
 
 - JDK 21
 - Maven 3.8.5
+- PostgreSQL
 - IntelliJ IDEA
 
 ### Étapes
@@ -113,11 +115,32 @@ Lab2_algo/
 git clone https://github.com/bleeband/Lab2_algo.git
 cd Lab2_algo
 
-# 2. Compiler
+# 2. Preparer le fichier de configuration PostgreSQL
+cp database.properties.example database.properties
+# Modifier database.properties avec vos vrais acces PostgreSQL
+
+# 3. Creer et peupler la base depuis le depot
+createdb spotify_lab
+psql -d spotify_lab -f schema.sql
+psql -d spotify_lab -f donnees.sql
+
+# 4. Compiler
 mvn clean compile
 
-# 3. Lancer l'application
+# 5. Lancer l'application
 mvn javafx:run
+```
+
+Important: lancer `psql -f donnees.sql` depuis la racine du projet, car le script utilise le CSV versionne dans `src/main/resources/org/example/spotifylab/data/chansons.csv`.
+
+Au lancement, l'application cree aussi les tables manquantes et peuple automatiquement PostgreSQL depuis le CSV si la table `chanson` est vide. Le script SQL reste versionne pour que le correcteur puisse reconstruire la base manuellement au besoin.
+
+Le fichier `database.properties` n'est pas versionne parce qu'il contient les vrais identifiants. Le fichier `database.properties.example` indique seulement les cles a remplir:
+
+```properties
+db.url=jdbc:postgresql://localhost:5432/spotify_lab
+db.user=votre_utilisateur
+db.password=votre_mot_de_passe
 ```
 
 ### Alternative dans IntelliJ
@@ -135,7 +158,7 @@ mvn javafx:run
 Java 21 avec JavaFX 21.0.6
 
 ### Format des données
-CSV, séparateur point-virgule (;), encodage UTF-8, 494 chansons
+CSV, séparateur point-virgule (;), encodage UTF-8, 494 chansons. Le mode PostgreSQL est branche par DAO; le CSV reste disponible comme autre implementation de `SourceDonnees`.
 
 ### Algorithmes de tri implémentés
 - Tri par insertion : O(n²)
@@ -144,6 +167,7 @@ CSV, séparateur point-virgule (;), encodage UTF-8, 494 chansons
 
 ### Bibliothèques externes utilisées
 JUnit 5.12.1 pour les tests
+Driver PostgreSQL JDBC 42.7.8 pour la connexion a la base
 
 ---
 
