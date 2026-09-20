@@ -32,6 +32,7 @@ import org.example.spotifylab.service.PlaylistService;
 import org.example.spotifylab.service.SourceDonnees;
 import org.example.spotifylab.util.ConvertisseursFiltres;
 import org.example.spotifylab.util.FormateurDuree;
+import org.example.spotifylab.service.GestionChansonService;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -83,8 +84,10 @@ public class MainController {
     @FXML private Button boutonBenchmark;
     @FXML private Button boutonModifierChanson;
     @FXML private Button boutonSupprimerChanson;
+    @FXML private Button boutonAjouterChanson;
 
     private final SourceDonnees sourceDonnees = ConfigurationSourceDonnees.creer();
+    private final GestionChansonService gestionChansonService = ConfigurationSourceDonnees.creerGestionChansonService(sourceDonnees);
     private final PaginationService paginationService = new PaginationService();
     private final ChansonService chansonService = new ChansonService();
     private final AlgorithmeTri<Chanson> algorithmeTri = new TriFusion<>();
@@ -184,12 +187,19 @@ public class MainController {
         });
         afficherDetails(null);
 
-        boutonModifierChanson.disableProperty().bind(
-                tableChansons.getSelectionModel().selectedItemProperty().isNull()
-                );
-        boutonSupprimerChanson.disableProperty().bind(
-                tableChansons.getSelectionModel().selectedItemProperty().isNull()
-        );
+
+        if (gestionChansonService == null) {
+            boutonAjouterChanson.setDisable(true);
+            boutonModifierChanson.setDisable(true);
+            boutonSupprimerChanson.setDisable(true);
+        } else {
+            boutonModifierChanson.disableProperty().bind(
+                    tableChansons.getSelectionModel().selectedItemProperty().isNull()
+            );
+            boutonSupprimerChanson.disableProperty().bind(
+                    tableChansons.getSelectionModel().selectedItemProperty().isNull()
+            );
+        }
     }
 
     private void configurerLecteur() {
@@ -208,9 +218,18 @@ public class MainController {
             chansons = sourceDonnees.chargerChansons();
             chansonsFiltrees = chansons;
             remplirFiltresDepuisChansons();
-            PlaylistService playlistService = new PlaylistService(
-                    new Bibliotheque(chansons),
-                    ConfigurationSourceDonnees.creerPlaylistDao());
+
+            Bibliotheque bibliotheque = new Bibliotheque(chansons);
+            PlaylistService playlistService;
+
+            if (gestionChansonService == null) {
+                playlistService = new PlaylistService(bibliotheque);
+            } else {
+                playlistService = new PlaylistService(
+                        bibliotheque,
+                        ConfigurationSourceDonnees.creerPlaylistDao()
+                );
+            }
             new PlaylistController(
                     listePlaylists, listeChansonsPlaylist, comboAjoutPlaylist, labelDureePlaylist,
                     boutonNouvellePlaylist, boutonSupprimerPlaylist, boutonAjouter,
