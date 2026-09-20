@@ -81,6 +81,8 @@ public class MainController {
     @FXML private Button boutonMonterPlaylist;
     @FXML private Button boutonDescendrePlaylist;
     @FXML private Button boutonBenchmark;
+    @FXML private Button boutonModifierChanson;
+    @FXML private Button boutonSupprimerChanson;
 
     private final SourceDonnees sourceDonnees = ConfigurationSourceDonnees.creer();
     private final PaginationService paginationService = new PaginationService();
@@ -92,6 +94,21 @@ public class MainController {
     private List<Chanson> chansonsFiltrees = List.of();
     private int pageCourante = 0;
     private int taillePage = 25;
+
+    @FXML
+    private void ajouterChanson() {
+
+    }
+
+    @FXML
+    private void modifierChanson() {
+
+    }
+
+    @FXML
+    private void supprimerChanson() {
+
+    }
 
     @FXML
     private void initialize() {
@@ -166,6 +183,13 @@ public class MainController {
             appliquerFiltres();
         });
         afficherDetails(null);
+
+        boutonModifierChanson.disableProperty().bind(
+                tableChansons.getSelectionModel().selectedItemProperty().isNull()
+                );
+        boutonSupprimerChanson.disableProperty().bind(
+                tableChansons.getSelectionModel().selectedItemProperty().isNull()
+        );
     }
 
     private void configurerLecteur() {
