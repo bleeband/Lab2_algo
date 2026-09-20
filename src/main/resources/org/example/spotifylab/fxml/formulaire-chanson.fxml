@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="358.0" prefWidth="718.0" spacing="16.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.spotifylab.controller.FormulaireChansonController">
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label prefHeight="18.0" prefWidth="211.0" text="Informations sur la chanson :" />
+
+    <GridPane hgap="12.0" vgap="10.0">
+
+        <Label text="Titre" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="champTitre" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" />
+
+        <Label text="Artiste" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="champArtiste" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Label text="Album" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="champAlbum" promptText="Facultatif" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Label text="Année" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="champAnnee" promptText="Ex. : 2020" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+        <Label text="Genre" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <ComboBox fx:id="comboGenre" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+        <Label text="Durée (secondes)" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <TextField fx:id="champDuree" promptText="Ex. : 180" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+        <Label text="Nombre d’écoutes" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <TextField fx:id="champEcoutes" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+
+    </GridPane>
+
+    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+        <Button fx:id="boutonAnnuler" cancelButton="true" text="Annuler" />
+        <Button fx:id="boutonEnregistrer" defaultButton="true" text="Enregistrer" />
+    </HBox>
+
+</VBox>
