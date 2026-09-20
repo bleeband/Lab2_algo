@@ -100,12 +100,19 @@ public class MainController {
 
     @FXML
     private void ajouterChanson() {
-
+        ouvrirFormulaireChanson(null);
     }
 
     @FXML
     private void modifierChanson() {
+        Chanson selection =
+                tableChansons.getSelectionModel().getSelectedItem();
 
+        if (selection == null) {
+            return;
+        }
+
+        ouvrirFormulaireChanson(selection);
     }
 
     @FXML
@@ -337,5 +344,39 @@ public class MainController {
         chansonsFiltrees = algorithmeTri.trier(chansonsFiltrees, comparateur);
         pageCourante = 0;
         afficherPage();
+    }
+
+    private void ouvrirFormulaireChanson(Chanson chanson) {
+        if (gestionChansonService == null) {
+            return;
+        }
+
+        try {
+            FXMLLoader chargeur = new FXMLLoader(
+                    getClass().getResource(
+                            "/org/example/spotifylab/fxml/formulaire-chanson.fxml"
+                    )
+            );
+
+            Parent racine = chargeur.load();
+
+            FormulaireChansonController controleur = chargeur.getController();
+            controleur.remplirFormulaire(chanson);
+
+            Stage fenetre = new Stage();
+            fenetre.initOwner(tableChansons.getScene().getWindow());
+            fenetre.initModality(Modality.WINDOW_MODAL);
+            fenetre.setTitle(
+                    chanson == null ? "Ajouter une chanson" : "Modifier une chanson"
+            );
+            fenetre.setScene(new Scene(racine));
+            fenetre.showAndWait();
+
+        } catch (IOException exception) {
+            afficherErreur(
+                    "Ouverture impossible",
+                    "Impossible d’ouvrir le formulaire de chanson."
+            );
+        }
     }
 }
