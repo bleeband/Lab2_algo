@@ -1,7 +1,11 @@
-# Lab 2 : Spotify Playlist Manager
+# Lab 2 et 3 : Spotify Playlist Manager
 
 **Cours** : 420-930-MA — Algorithmes et modèles de programmation
 **Session** : Été 2026, groupe 25604
+
+**Laboratoire** : 3 (Application JavaFX v1)
+**Date de remise** : 20 septembre 2026, 23h59
+
 **Laboratoire** : 2 (Application JavaFX v1)
 **Date de remise** : 13 septembre 2026, 23h59
 
@@ -208,7 +212,14 @@ Eva : Pas réussi à mettre certains textes en "bold" avec CSS.
 ---
 
 ## Historique Git
+**TP3**
 
+**Nombre total de commits** : 113
+**Date du dernier commit** : 20 septembre 2026
+**Numero du dernier commit** : Commit faa2ae8
+
+
+**TP 2**
 **Nombre total de commits** : 87
 **Date du premier commit** : 26 août 2026
 **Date du dernier commit** : 13 septembre 2026
