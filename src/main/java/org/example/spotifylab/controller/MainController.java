@@ -33,6 +33,7 @@ import org.example.spotifylab.service.SourceDonnees;
 import org.example.spotifylab.util.ConvertisseursFiltres;
 import org.example.spotifylab.util.FormateurDuree;
 import org.example.spotifylab.service.GestionChansonService;
+import javafx.scene.control.ButtonType;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -118,6 +119,34 @@ public class MainController {
 
     @FXML
     private void supprimerChanson() {
+        Chanson selection = tableChansons.getSelectionModel().getSelectedItem();
+
+        if (selection == null || gestionChansonService == null) {
+            return;
+        }
+
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.initOwner(tableChansons.getScene().getWindow());
+        confirmation.setTitle("Supprimer une chanson");
+        confirmation.setHeaderText("Supprimer " + selection.getTitre() + " ?"
+        );
+
+        if (confirmation.showAndWait().orElse(ButtonType.CANCEL) != ButtonType.OK) {
+            return;
+        }
+
+        try {
+            boolean supprimee = gestionChansonService.supprimer(selection.getId());
+
+            if (!supprimee) {
+                afficherErreur("Suppression impossible", "Cette chanson n'existe plus dans la base de données"
+                );
+            }
+
+            actualiserApresModification();
+        } catch (IOException exception) {
+            afficherErreur("Suppression impossible", "Impossible de supprimer la chanson");
+        }
 
     }
 
