@@ -32,6 +32,8 @@ import org.example.spotifylab.service.PlaylistService;
 import org.example.spotifylab.service.SourceDonnees;
 import org.example.spotifylab.util.ConvertisseursFiltres;
 import org.example.spotifylab.util.FormateurDuree;
+import org.example.spotifylab.service.GestionChansonService;
+import javafx.scene.control.ButtonType;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -81,8 +83,12 @@ public class MainController {
     @FXML private Button boutonMonterPlaylist;
     @FXML private Button boutonDescendrePlaylist;
     @FXML private Button boutonBenchmark;
+    @FXML private Button boutonModifierChanson;
+    @FXML private Button boutonSupprimerChanson;
+    @FXML private Button boutonAjouterChanson;
 
     private final SourceDonnees sourceDonnees = ConfigurationSourceDonnees.creer();
+    private final GestionChansonService gestionChansonService = ConfigurationSourceDonnees.creerGestionChansonService(sourceDonnees);
     private final PaginationService paginationService = new PaginationService();
     private final ChansonService chansonService = new ChansonService();
     private final AlgorithmeTri<Chanson> algorithmeTri = new TriFusion<>();
@@ -92,6 +98,57 @@ public class MainController {
     private List<Chanson> chansonsFiltrees = List.of();
     private int pageCourante = 0;
     private int taillePage = 25;
+    private PlaylistController playlistController;
+
+    @FXML
+    private void ajouterChanson() {
+        ouvrirFormulaireChanson(null);
+    }
+
+    @FXML
+    private void modifierChanson() {
+        Chanson selection =
+                tableChansons.getSelectionModel().getSelectedItem();
+
+        if (selection == null) {
+            return;
+        }
+
+        ouvrirFormulaireChanson(selection);
+    }
+
+    @FXML
+    private void supprimerChanson() {
+        Chanson selection = tableChansons.getSelectionModel().getSelectedItem();
+
+        if (selection == null || gestionChansonService == null) {
+            return;
+        }
+
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.initOwner(tableChansons.getScene().getWindow());
+        confirmation.setTitle("Supprimer une chanson");
+        confirmation.setHeaderText("Supprimer " + selection.getTitre() + " ?"
+        );
+
+        if (confirmation.showAndWait().orElse(ButtonType.CANCEL) != ButtonType.OK) {
+            return;
+        }
+
+        try {
+            boolean supprimee = gestionChansonService.supprimer(selection.getId());
+
+            if (!supprimee) {
+                afficherErreur("Suppression impossible", "Cette chanson n'existe plus dans la base de données"
+                );
+            }
+
+            actualiserApresModification();
+        } catch (IOException exception) {
+            afficherErreur("Suppression impossible", "Impossible de supprimer la chanson");
+        }
+
+    }
 
     @FXML
     private void initialize() {
@@ -166,6 +223,20 @@ public class MainController {
             appliquerFiltres();
         });
         afficherDetails(null);
+
+
+        if (gestionChansonService == null) {
+            boutonAjouterChanson.setDisable(true);
+            boutonModifierChanson.setDisable(true);
+            boutonSupprimerChanson.setDisable(true);
+        } else {
+            boutonModifierChanson.disableProperty().bind(
+                    tableChansons.getSelectionModel().selectedItemProperty().isNull()
+            );
+            boutonSupprimerChanson.disableProperty().bind(
+                    tableChansons.getSelectionModel().selectedItemProperty().isNull()
+            );
+        }
     }
 
     private void configurerLecteur() {
@@ -181,34 +252,101 @@ public class MainController {
 
     private void chargerChansons() {
         try {
-            chansons = sourceDonnees.chargerChansons();
-            chansonsFiltrees = chansons;
-            remplirFiltresDepuisChansons();
-            PlaylistService playlistService = new PlaylistService(
-                    new Bibliotheque(chansons),
-                    ConfigurationSourceDonnees.creerPlaylistDao());
-            new PlaylistController(
-                    listePlaylists, listeChansonsPlaylist, comboAjoutPlaylist, labelDureePlaylist,
-                    boutonNouvellePlaylist, boutonSupprimerPlaylist, boutonAjouter,
-                    boutonRetirerPlaylist, boutonMonterPlaylist, boutonDescendrePlaylist,
-                    playlistService, () -> tableChansons.getSelectionModel().getSelectedItem(), this::afficherErreur);
-            afficherPage();
+            rechargerDonnees();
         } catch (IOException exception) {
-            afficherErreur("Impossible de charger les chansons", exception.getMessage());
+            afficherErreur(
+                    "Chargement impossible",
+                    "Impossible de charger les données. "
+                            + "Vérifiez la source de données et sa configuration."
+            );
         }
     }
 
+    private void rechargerDonnees() throws IOException {
+        List<Chanson> nouvellesChansons = sourceDonnees.chargerChansons();
+
+        Bibliotheque bibliotheque = new Bibliotheque(nouvellesChansons);
+        PlaylistService nouveauService;
+
+        if (gestionChansonService == null) {
+            nouveauService = new PlaylistService(bibliotheque);
+        } else {
+            nouveauService = new PlaylistService(
+                    bibliotheque,
+                    ConfigurationSourceDonnees.creerPlaylistDao()
+            );
+        }
+
+        chansons = nouvellesChansons;
+        remplirFiltresDepuisChansons();
+
+        if (playlistController == null) {
+            playlistController = new PlaylistController(
+                    listePlaylists,
+                    listeChansonsPlaylist,
+                    comboAjoutPlaylist,
+                    labelDureePlaylist,
+                    boutonNouvellePlaylist,
+                    boutonSupprimerPlaylist,
+                    boutonAjouter,
+                    boutonRetirerPlaylist,
+                    boutonMonterPlaylist,
+                    boutonDescendrePlaylist,
+                    nouveauService,
+                    () -> tableChansons.getSelectionModel().getSelectedItem(),
+                    this::afficherErreur
+            );
+        } else {
+            playlistController.remplacerService(nouveauService);
+        }
+
+        appliquerFiltres();
+        tableChansons.getSelectionModel().clearSelection();
+        afficherDetails(null);
+    }
+
     private void remplirFiltresDepuisChansons() {
+        String artisteSelectionne = comboArtiste.getValue();
+        Integer decennieSelectionnee = comboDecennie.getValue();
+
+        comboArtiste.getItems().clear();
+        comboArtiste.getItems().add(null);
+
         chansons.stream()
                 .map(Chanson::getArtiste)
                 .distinct()
                 .sorted(String.CASE_INSENSITIVE_ORDER)
                 .forEach(comboArtiste.getItems()::add);
+
+        comboArtiste.setValue(
+                comboArtiste.getItems().contains(artisteSelectionne)
+                        ? artisteSelectionne
+                        : null
+        );
+
+        comboDecennie.getItems().clear();
+        comboDecennie.getItems().add(null);
+
         chansons.stream()
                 .map(chanson -> (chanson.getAnnee() / 10) * 10)
                 .distinct()
                 .sorted()
                 .forEach(comboDecennie.getItems()::add);
+
+        comboDecennie.setValue(
+                comboDecennie.getItems().contains(decennieSelectionnee)
+                        ? decennieSelectionnee
+                        : null
+        );
+    }
+
+    private void actualiserApresModification() {
+        try {
+            rechargerDonnees();
+
+        } catch (IOException exception) {
+            afficherErreur("Actualisation impossible", "Erreur chargement données");
+        }
     }
 
     private void afficherPage() {
@@ -294,5 +432,43 @@ public class MainController {
         chansonsFiltrees = algorithmeTri.trier(chansonsFiltrees, comparateur);
         pageCourante = 0;
         afficherPage();
+    }
+
+    private void ouvrirFormulaireChanson(Chanson chanson) {
+        if (gestionChansonService == null) {
+            return;
+        }
+
+        try {
+            FXMLLoader chargeur = new FXMLLoader(
+                    getClass().getResource(
+                            "/org/example/spotifylab/fxml/formulaire-chanson.fxml"
+                    )
+            );
+
+            Parent racine = chargeur.load();
+
+            FormulaireChansonController controleur = chargeur.getController();
+            controleur.configurer(gestionChansonService, chanson);
+
+            Stage fenetre = new Stage();
+            fenetre.initOwner(tableChansons.getScene().getWindow());
+            fenetre.initModality(Modality.WINDOW_MODAL);
+            fenetre.setTitle(
+                    chanson == null ? "Ajouter une chanson" : "Modifier une chanson"
+            );
+            fenetre.setScene(new Scene(racine));
+            fenetre.showAndWait();
+
+            if (controleur.enregistrementReussi()) {
+                actualiserApresModification();
+            }
+
+        } catch (IOException exception) {
+            afficherErreur(
+                    "Ouverture impossible",
+                    "Impossible d’ouvrir le formulaire de chanson."
+            );
+        }
     }
 }

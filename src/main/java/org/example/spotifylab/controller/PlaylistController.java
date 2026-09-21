@@ -19,9 +19,14 @@ final class PlaylistController {
     private final ListView<Chanson> chansonsPlaylist;
     private final ComboBox<Playlist> ajoutPlaylist;
     private final Label dureePlaylist;
-    private final PlaylistService service;
+    private PlaylistService service;
     private final Supplier<Chanson> chansonSelectionnee;
     private final BiConsumer<String, String> afficherErreur;
+
+    void remplacerService(PlaylistService service) {
+        this.service = service;
+        actualiser(null);
+    }
 
     PlaylistController(ListView<Playlist> playlists,
                        ListView<Chanson> chansonsPlaylist,
