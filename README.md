@@ -212,16 +212,22 @@ Eva : Pas réussi à mettre certains textes en "bold" avec CSS.
 ---
 
 ## Historique Git
+
 **TP3**
 
-**Nombre total de commits** : 113
+**Nombre total de commits** : 123
+
 **Date du dernier commit** : 20 septembre 2026
+
 **Numero du dernier commit** : Commit faa2ae8
 
 
 **TP 2**
+
 **Nombre total de commits** : 87
+
 **Date du premier commit** : 26 août 2026
+
 **Date du dernier commit** : 13 septembre 2026
 
 Voir l'onglet **Insights > Contributors** de GitHub pour voir la contribution de chacun.
